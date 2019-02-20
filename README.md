@@ -4,7 +4,7 @@ This is a test application using Google Cloud. Much of the documentation for thi
 
     1. https://cloud.google.com/ml-engine/docs/scikit/getting-started-training
     2. https://cloud.google.com/ml-engine/docs/scikit/getting-predictions-xgboost
-    3. stackoverflow.com
+    3. https://stackoverflow.com
 
 I decided to make this demo because, while the GCP documentation is great, it didn't have the example for pushing the Iris Xgboost model to production.
 
@@ -21,6 +21,7 @@ Then source the virtual environment by executing:
 
 Then to run the model simply execute:
 
+    # Note that you should change most of these according to the documentation in the steps outliend in (1)
     BUCKET_NAME=myfirstproject-fja-mlengine
     JOB_NAME=iris_xgboost_20190216_165955
     JOB_DIR=gs://myfirstproject-fja-mlengine/xgboost_job_dir
@@ -31,6 +32,7 @@ Then to run the model simply execute:
     SCALE_TIER=BASIC
     FRAMEWORK=XGBOOST
 
+    # Submitting the job to train the model 
     gcloud ml-engine jobs submit training $JOB_NAME \
       --job-dir $JOB_DIR \
       --package-path $TRAINING_PACKAGE_PATH \
