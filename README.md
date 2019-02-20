@@ -67,7 +67,7 @@ Then to run the model simply execute:
         [4.4, 2.9, 1.4, 0.2]
 
 
-    # Finally score the model
+    # Finally score the test sample with the input.json file
     gcloud ml-engine local predict --model-dir=$MODEL_DIR \
         --json-instances=input.json \
         --verbosity debug \
