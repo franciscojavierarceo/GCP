@@ -1,8 +1,19 @@
 # Google Cloud Project
 
-This is a test application using Google Cloud.
+This is a test application using Google Cloud. Much of the documentation for this demo can be found at 
 
-Source the virtual environment by executing:
+    1. https://cloud.google.com/ml-engine/docs/scikit/getting-started-training
+    2. https://cloud.google.com/ml-engine/docs/scikit/getting-predictions-xgboost
+    3. stackoverflow.com
+
+I decided to make this demo because, while the GCP documentation is great, it didn't have the example for pushing the Iris Xgboost model to production.
+
+
+First make sure you have virtualenv installed
+    
+    pip install --user --upgrade virtualenv
+
+Then source the virtual environment by executing:
 
     virtualenv cmle-env
     source cmle-env/bin/activate
@@ -32,7 +43,6 @@ Then to run the model simply execute:
     # You can see the logs using:
     gcloud ml-engine jobs stream-logs $JOB_NAME
 
-
     # And see the *.bst model at:
     gsutil ls gs://$BUCKET_NAME/iris_*
 
@@ -42,9 +52,22 @@ Then to run the model simply execute:
     # make sure you remove .pyc files from the path below:
     rm ~/google-cloud-sdk/lib/googlecloudsdk/command_lib/ml_engine/*.pyc
     
+    # Create a test input file that you can use to try and score the live model
+        (cmle-env) franciscojavierarceo$ cat input.json 
+        [5.1, 3.5, 1.4, 0.2] 
+        [4.9, 3.0, 1.4, 0.2]
+        [4.7, 3.2, 1.3, 0.2]
+        [4.6, 3.1, 1.5, 0.2]
+        [5.0, 3.6, 1.4, 0.2]
+        [5.4, 3.9, 1.7, 0.4]
+        [4.6, 3.4, 1.4, 0.3]
+        [5.0, 3.4, 1.5, 0.2]
+        [4.4, 2.9, 1.4, 0.2]
+
+
     # Finally score the model
     gcloud ml-engine local predict --model-dir=$MODEL_DIR \
-        --json-instances=input3.json \
+        --json-instances=input.json \
         --verbosity debug \
         --framework=$FRAMEWORK
 
